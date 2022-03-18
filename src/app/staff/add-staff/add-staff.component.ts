@@ -36,7 +36,7 @@ export class AddStaffComponent {
     if(!this.staffForm.valid){
       return alert('fill the proper data')
     }
-    this.staff.newStaffAdd(this.staffForm.value).subscribe((data)=>{
+    this.staff.userAdd(this.staffForm.value).subscribe((data)=>{
       console.log(data,40)
     })
   }

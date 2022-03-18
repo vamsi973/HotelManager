@@ -1,6 +1,7 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
 import { StaffService } from '../../staff.service';
+import { D } from '@angular/cdk/keycodes';
 @Component({
   selector: 'app-delete',
   templateUrl: './delete.component.html',
@@ -16,6 +17,6 @@ export class DeleteDialogComponent {
     this.dialogRef.close();
   }
   confirmDelete(): void {
-    this.staffService.deleteStaff(this.data.id);
+    this.staffService.deleteStaff(this.data._id);
   }
 }

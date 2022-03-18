@@ -38,6 +38,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router
   ) {
+    console.log(this.authService.currentUserValue,41);
+    this.userFullName = this.authService.currentUserValue['name'];
+    this.userType = this.authService.currentUserValue['userType'] || "demo";
     const body = this.elementRef.nativeElement.closest('body');
     this.routerObj = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {

@@ -38,6 +38,7 @@ export class SigninComponent implements OnInit {
         .subscribe(
           (res) => {
             if (res) {
+              console.log(this.authService.currentUserValue.token,411);
               const token = this.authService.currentUserValue.token;
               if (token) {
                 this.router.navigate(['/dashboard/main']);

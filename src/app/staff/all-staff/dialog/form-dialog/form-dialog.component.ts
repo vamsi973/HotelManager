@@ -44,25 +44,26 @@ export class FormDialogComponent {
     return this.formControl.hasError('required')
       ? 'Required field'
       : this.formControl.hasError('email')
-      ? 'Not a valid email'
-      : '';
+        ? 'Not a valid email'
+        : '';
   }
   createContactForm(): FormGroup {
     return this.fb.group({
-      id: [this.staff.id],
+      _id: [this.staff._id],
       img: [this.staff.img],
       name: [this.staff.name],
       email: [
         this.staff.email,
         [Validators.required, Validators.email, Validators.minLength(5)],
       ],
-      date: [
-        formatDate(this.staff.date, 'yyyy-MM-dd', 'en'),
+      joining_date: [
+        formatDate(this.staff.joining_date, 'yyyy-MM-dd', 'en'),
         [Validators.required],
       ],
       designation: [this.staff.designation],
       address: [this.staff.address],
-      mobile: [this.staff.mobile],
+      contact_no: [this.staff['contact_no']],
+      salary: [this.staff.salary],
     });
   }
   submit() {
@@ -72,17 +73,25 @@ export class FormDialogComponent {
     this.dialogRef.close();
   }
   public confirmAdd(): void {
-    console.log(this.staffForm.getRawValue(),7557)
-    this.staffService.addStaff(this.staffForm.getRawValue());  
+
+    // this.staffService.newStaffAdd(this.staffForm.getRawValue()).subscribe((data)=>{
+    //   console.log(data,7557)
+    // })
+    if (this.action == 'edit') {
+      this.staffService.updateStaff(this.staffForm.getRawValue());
+    } else {
+      this.staffService.addStaff(this.staffForm.getRawValue());
+    }
+
   }
   openedChange(opened: boolean) {
     console.log(opened ? 'opened' : 'closed');
   }
-  designation =[
-    {id:1,name:""},
-    {id:1,name:""},
-    {id:1,name:""},
-    {id:1,name:""},
-    {id:1,name:""},
+  designation = [
+    { id: 1, name: "" },
+    { id: 1, name: "" },
+    { id: 1, name: "" },
+    { id: 1, name: "" },
+    { id: 1, name: "" },
   ]
 }

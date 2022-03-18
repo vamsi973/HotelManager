@@ -33,6 +33,9 @@
               <mat-option [value]="'Cook'">
                 Cook
               </mat-option>
+              <mat-option [value]="'supervisor'">
+                supervisor
+              </mat-option>
               <mat-option [value]="'Kitchen Manager'">
                 Kitchen Manager
               </mat-option>
@@ -62,9 +65,9 @@
         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
           <mat-form-field class="example-full-width mb-3" appearance="outline">
             <mat-label>Mobile</mat-label>
-            <input matInput formControlName="mobile" type="number">
+            <input matInput formControlName="contact_no" type="number">
             <mat-icon matSuffix>phone</mat-icon>
-            <mat-error *ngIf="staffForm.get('mobile').hasError('required')">
+            <mat-error *ngIf="staffForm.get('contact_no').hasError('required')">
               Mobile is required
             </mat-error>
           </mat-form-field>
@@ -84,11 +87,21 @@
         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
           <mat-form-field class="example-full-width mb-3" appearance="outline">
             <mat-label>Joining date</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="date">
+            <input matInput [matDatepicker]="picker" formControlName="joining_date">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="staffForm.get('date').hasError('required')">
+            <mat-error *ngIf="staffForm.get('joining_date').hasError('required')">
               Please select date
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>salary</mat-label>
+            <input matInput formControlName="salary" required>
+            <mat-icon matSuffix>money</mat-icon>
+            <mat-error *ngIf="staffForm.get('salary').hasError('required')">
+              salary is required
             </mat-error>
           </mat-form-field>
         </div>

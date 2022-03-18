@@ -1,23 +1,25 @@
 import { formatDate } from '@angular/common';
 export class Staff {
-  id: number;
+  _id: number;
   img: string;
   name: string;
   email: string;
-  date: string;
+  joining_date: string;
   address: string;
-  mobile: string;
+  contact_no: string;
   designation: string;
+  salary: number;
   constructor(staff) {
     {
-      this.id = staff.id || this.getRandomID();
+      this._id = staff._id || this.getRandomID();
       this.img = staff.avatar || 'assets/images/user/user1.jpg';
       this.name = staff.name || '';
       this.designation = staff.designation || '';
       this.email = staff.email || '';
-      this.date = formatDate(new Date(), 'yyyy-MM-dd', 'en') || '';
+      this.joining_date = formatDate(new Date(), 'yyyy-MM-dd', 'en') || '';
       this.address = staff.address || '';
-      this.mobile = staff.mobile || '';
+      this.contact_no = staff.contact_no || '';
+      this.salary = staff.salary || '';
     }
   }
   public getRandomID(): string {

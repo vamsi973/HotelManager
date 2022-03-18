@@ -22,12 +22,12 @@ import { SelectionModel } from '@angular/cdk/collections';
 export class AllstaffComponent implements OnInit {
   displayedColumns = [
     'select',
-    'img',
+    // 'img',
     'name',
     'designation',
-    'mobile',
+    'contact_no',
     'email',
-    'date',
+    'joining_date',
     'address',
     'actions',
   ];
@@ -87,13 +87,15 @@ export class AllstaffComponent implements OnInit {
     });
   }
   editCall(row) {
-    this.id = row.id;
+    console.log(row,900);
+    this.id = row._id;
     let tempDirection;
     if (localStorage.getItem('isRtl') === 'true') {
       tempDirection = 'rtl';
     } else {
       tempDirection = 'ltr';
     }
+
     const dialogRef = this.dialog.open(FormDialogComponent, {
       data: {
         staff: row,
@@ -103,9 +105,11 @@ export class AllstaffComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 1) {
+        console.log("after closing",this.exampleDatabase.dataChange.value);
+        console.log("updated data",this.id);
         // When using an edit things are little different, firstly we find record inside DataService by id
         const foundIndex = this.exampleDatabase.dataChange.value.findIndex(
-          (x) => x.id === this.id
+          (x) => x._id === this.id
         );
         // Then you update that record using data from dialogData (values you enetered)
         this.exampleDatabase.dataChange.value[foundIndex] =
@@ -122,7 +126,7 @@ export class AllstaffComponent implements OnInit {
     });
   }
   deleteItem(row) {
-    this.id = row.id;
+    this.id = row['_id'];
     let tempDirection;
     if (localStorage.getItem('isRtl') === 'true') {
       tempDirection = 'rtl';
@@ -136,7 +140,7 @@ export class AllstaffComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 1) {
         const foundIndex = this.exampleDatabase.dataChange.value.findIndex(
-          (x) => x.id === this.id
+          (x) => x['_id'] === this.id
         );
         // for delete we use splice in order to remove single object from DataService
         this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
@@ -170,7 +174,11 @@ export class AllstaffComponent implements OnInit {
   }
   removeSelectedRows() {
     const totalSelect = this.selection.selected.length;
+    console.log(totalSelect,177);
+    console.log("selected items" ,this.selection.selected)
+    let ids =[];
     this.selection.selected.forEach((item) => {
+      ids.push(item._id);
       const index: number = this.dataSource.renderedData.findIndex(
         (d) => d === item
       );
@@ -179,6 +187,8 @@ export class AllstaffComponent implements OnInit {
       this.refreshTable();
       this.selection = new SelectionModel<Staff>(true, []);
     });
+
+    this.staffService.removeSelectedStaff({id:ids}).subscribe();
     this.showNotification(
       'snackbar-danger',
       totalSelect + ' Record Delete Successfully...!!!',
@@ -188,6 +198,7 @@ export class AllstaffComponent implements OnInit {
   }
   public loadData() {
     this.exampleDatabase = new StaffService(this.httpClient);
+    console.log(this.exampleDatabase,191);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -252,6 +263,7 @@ export class ExampleDataSource extends DataSource<Staff> {
     this._exampleDatabase.getAllStaffs();
     return merge(...displayDataChanges).pipe(
       map(() => {
+        console.log(this._exampleDatabase.data,256);
         // Filter data
         this.filteredData = this._exampleDatabase.data
           .slice()
@@ -260,8 +272,8 @@ export class ExampleDataSource extends DataSource<Staff> {
               staff.name +
               staff.designation +
               staff.email +
-              staff.mobile +
-              staff.date +
+              staff.contact_no +
+              staff.joining_date +
               staff.address
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -289,7 +301,7 @@ export class ExampleDataSource extends DataSource<Staff> {
       let propertyB: number | string = '';
       switch (this._sort.active) {
         case 'id':
-          [propertyA, propertyB] = [a.id, b.id];
+          [propertyA, propertyB] = [a._id, b._id];
           break;
         case 'name':
           [propertyA, propertyB] = [a.name, b.name];
@@ -297,14 +309,14 @@ export class ExampleDataSource extends DataSource<Staff> {
         case 'email':
           [propertyA, propertyB] = [a.email, b.email];
           break;
-        case 'date':
-          [propertyA, propertyB] = [a.date, b.date];
+        case 'joining_date':
+          [propertyA, propertyB] = [a.joining_date, b.joining_date];
           break;
         case 'address':
           [propertyA, propertyB] = [a.address, b.address];
           break;
-        case 'mobile':
-          [propertyA, propertyB] = [a.mobile, b.mobile];
+        case 'contact_no':
+          [propertyA, propertyB] = [a.contact_no, b.contact_no];
           break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
