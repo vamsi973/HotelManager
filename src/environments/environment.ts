@@ -8,7 +8,7 @@ export const environment = {
 };
 
 function resolveApiURL(){
-  return true ? 'https://hotelmanager973.herokuapp.com/api' : 'http://localhost:3000/api'; 
+  return false ? 'https://hotelmanager973.herokuapp.com/api' : 'http://localhost:3000/api'; 
 }
 
 /*
