@@ -16,6 +16,6 @@ export class DeleteDialogComponent {
     this.dialogRef.close();
   }
   confirmDelete(): void {
-    this.roomService.deleteRoom(this.data.id);
+    this.roomService.deleteRoom(this.data._id);
   }
 }

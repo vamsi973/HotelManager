@@ -1,21 +1,19 @@
 export class Room {
-  id: number;
-  roomNo: string;
-  type: string;
-  acNonac: string;
-  meal: string;
-  capacity: string;
-  phone: string;
+  _id: number;
+  room_no: string;
+  room_type: string;
+  category: string;
+  // meal: string;
+  room_capacity: string;
+  // phone: string;
   rent: string;
   constructor(room) {
     {
-      this.id = room.id || this.getRandomID();
-      this.roomNo = room.roomNo || '';
-      this.type = room.type || '';
-      this.acNonac = room.acNonac || '';
-      this.meal = room.meal || '';
-      this.capacity = room.capacity || '';
-      this.phone = room.phone || '';
+      this._id = room.id || this.getRandomID();
+      this.room_no = room.room_no || '';
+      this.room_type = room.room_type || '';
+      this.category = room.category || '';
+      this.room_capacity = room.room_capacity || '';
       this.rent = room.rent || '';
     }
   }

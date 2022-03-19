@@ -87,10 +87,10 @@
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
-                    <mat-label>City</mat-label>
-                    <input matInput formControlName="city" required>
-                    <mat-error *ngIf="bookingForm.get('city').hasError('required')">
-                      City is required
+                    <mat-label>Advance Amount</mat-label>
+                    <input matInput formControlName="advance_amount" required>
+                    <mat-error *ngIf="bookingForm.get('advance_amount').hasError('required')">
+                      advance amount is required
                     </mat-error>
                   </mat-form-field>
                 </div>
@@ -119,8 +119,8 @@
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Total Person</mat-label>
-                    <input matInput formControlName="total_person" type="number" required>
-                    <mat-error *ngIf="bookingForm.get('total_person').hasError('required')">
+                    <input matInput formControlName="total_persons" type="number" required>
+                    <mat-error *ngIf="bookingForm.get('total_persons').hasError('required')">
                       Total Person is required
                     </mat-error>
                   </mat-form-field>
@@ -129,27 +129,10 @@
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Select Room Type</mat-label>
                     <mat-select formControlName="room_type" required>
-                      <mat-option [value]="'Delux'">
-                        Delux
+                      <mat-option *ngFor='let item of availableRooms'[value]=item>
+                        {{item.room_type}}-{{item.category}}-{{item.room_no}}-{{item.room_capacity}}
                       </mat-option>
-                      <mat-option [value]="'Super Delux'">
-                        Super Delux
-                      </mat-option>
-                      <mat-option [value]="'Single'">
-                        Single
-                      </mat-option>
-                      <mat-option [value]="'Double'">
-                        Double
-                      </mat-option>
-                      <mat-option [value]="'Vila'">
-                        Vila
-                      </mat-option>
-                      <mat-option [value]="'AC'">
-                       AC
-                      </mat-option>
-                      <mat-option [value]="'NAC'">
-                        Non-Ac
-                      </mat-option>
+                  
                     </mat-select>
                     <mat-error *ngIf="bookingForm.get('room_type').hasError('required')">
                       Select Room Type
@@ -165,26 +148,7 @@
                   </mat-form-field>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
-                  <mat-form-field class="example-full-width mb-3" appearance="outline">
-                    <mat-label>Upload Image </mat-label>
-                    <ngx-mat-file-input formControlName="uploadImg">
-                    </ngx-mat-file-input>
 
-                    <mat-icon matSuffix>face</mat-icon>
-                  </mat-form-field>
-                </div>
-              </div>
-              <!-- <input type="file" (change)="onFileSelected($event)" placeholder="vamsi"> -->
-              <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
-                  <mat-form-field class="example-full-width mb-3" appearance="outline">
-                    <mat-label>Note</mat-label>
-                    <textarea matInput formControlName="note"></textarea>
-                  </mat-form-field>
-                </div>
-              </div>
               
               <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
@@ -272,6 +236,26 @@
                     <mat-error *ngIf="bookingForm.get('purpose_of_visit').hasError('required')">
                       Select Room Type
                     </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Upload Image </mat-label>
+                    <ngx-mat-file-input formControlName="uploadImg">
+                    </ngx-mat-file-input>
+
+                    <mat-icon matSuffix>face</mat-icon>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!-- <input type="file" (change)="onFileSelected($event)" placeholder="vamsi"> -->
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Note</mat-label>
+                    <textarea matInput formControlName="note"></textarea>
                   </mat-form-field>
                 </div>
               </div>

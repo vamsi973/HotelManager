@@ -49,25 +49,26 @@ export class FormDialogComponent {
   }
   createContactForm(): FormGroup {
     return this.fb.group({
-      id: [this.booking.id],
-      img: [this.booking.img],
+      id: [this.booking._id],
+      // img: [this.booking.img],
       name: [this.booking.name],
-      email: [
-        this.booking.email,
-        [Validators.required, Validators.email, Validators.minLength(5)]
-      ],
-      arriveDate: [
-        formatDate(this.booking.arriveDate, 'yyyy-MM-dd', 'en'),
+      // email: [
+      //   this.booking.email,
+      //   [Validators.required, Validators.email, Validators.minLength(5)]
+      // ],
+      arrival_date: [
+        formatDate(this.booking.arrival_date, 'yyyy-MM-dd', 'en'),
         [Validators.required]
       ],
-      departDate: [
-        formatDate(this.booking.departDate, 'yyyy-MM-dd', 'en'),
+      departuer_date: [
+        formatDate(this.booking.departuer_date, 'yyyy-MM-dd', 'en'),
         [Validators.required]
       ],
       gender: [this.booking.gender],
-      mobile: [this.booking.mobile],
-      roomType: [this.booking.roomType],
-      payment: [this.booking.payment]
+      contact_no: [this.booking.contact_no],
+      status: [this.booking.status],
+      payment: [this.booking.payment],
+      balance_amount: [this.booking.balance_amount]
     });
   }
   submit() {
@@ -77,6 +78,13 @@ export class FormDialogComponent {
     this.dialogRef.close();
   }
   public confirmAdd(): void {
+    if(this.action === 'edit'){
+      let record = Object.assign(this.booking,this.bookingForm.getRawValue())
+      this.bookingService.updateBookingStatus(record).subscribe((data)=>{
+        console.log(data);
+      })
+      return
+    }
     this.bookingService.addBooking(this.bookingForm.getRawValue());
   }
 }

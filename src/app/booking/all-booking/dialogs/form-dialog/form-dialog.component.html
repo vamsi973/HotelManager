@@ -2,7 +2,7 @@
   <div class="modalHeader">
     <div class="editRowModal">
       <div class="modalHeader clearfix">
-        <img [src]='booking.img' alt="avatar">
+        <!-- <img [src]='booking.img' alt="avatar"> -->
         <div class="modal-about">
           <div class="fw-bold p-t-5 font-17">
             {{dialogTitle}}</div>
@@ -50,71 +50,10 @@
         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
           <mat-form-field class="example-full-width mb-3" appearance="outline">
             <mat-label>Mobile</mat-label>
-            <input matInput formControlName="mobile" type="number">
+            <input matInput formControlName="contact_no" type="number">
             <mat-icon matSuffix>phone</mat-icon>
-            <mat-error *ngIf="bookingForm.get('mobile').hasError('required')">
+            <mat-error *ngIf="bookingForm.get('contact_no').hasError('required')">
               Mobile is required
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-          <mat-form-field class="example-full-width mb-3" appearance="outline">
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="email" required>
-            <mat-icon matSuffix>email</mat-icon>
-            <mat-error *ngIf="bookingForm.get('email').hasError('required') || bookingForm.get('email').touched">
-              Please enter a valid email address
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-          <mat-form-field class="example-full-width mb-3" appearance="outline">
-            <mat-label>Arrive date</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="arriveDate">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="bookingForm.get('arriveDate').hasError('required')">
-              Please select date
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-          <mat-form-field class="example-full-width mb-3" appearance="outline">
-            <mat-label>Depart date</mat-label>
-            <input matInput [matDatepicker]="picker1" formControlName="departDate">
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-            <mat-error *ngIf="bookingForm.get('departDate').hasError('required')">
-              Please select date
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-          <mat-form-field class="example-full-width mb-3" appearance="outline">
-            <mat-label>Room Type</mat-label>
-            <mat-select formControlName="roomType" required>
-              <mat-option [value]="'Delux'">
-                Delux
-              </mat-option>
-              <mat-option [value]="'Super Delux'">
-                Super Delux
-              </mat-option>
-              <mat-option [value]="'Vila'">
-                Vila
-              </mat-option>
-              <mat-option [value]="'Single'">
-                Single
-              </mat-option>
-              <mat-option [value]="'Double'">
-                Double
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="bookingForm.get('roomType').hasError('required')">
-              Room Type is required
             </mat-error>
           </mat-form-field>
         </div>
@@ -131,6 +70,61 @@
             </mat-select>
             <mat-error *ngIf="bookingForm.get('payment').hasError('required')">
               Payment is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Arrive date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="arrival_date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="bookingForm.get('arrival_date').hasError('required')">
+              Please select date
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Depart date</mat-label>
+            <input matInput [matDatepicker]="picker1" formControlName="departuer_date">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            <mat-error *ngIf="bookingForm.get('departuer_date').hasError('required')">
+              Please select date
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Room status</mat-label>
+            <mat-select formControlName="status" required>
+              <mat-option [value]="'close'">
+                vacate
+              </mat-option>
+              <mat-option [value]="'maintance'">
+                maintance
+              </mat-option>
+              <mat-option [value]="'open'">
+                open
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="bookingForm.get('status').hasError('required')">
+              Room status is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Balance amount</mat-label>
+            <input matInput formControlName="balance_amount" type="number">
+            <mat-icon matSuffix>money</mat-icon>
+            <mat-error *ngIf="bookingForm.get('balance_amount').hasError('required')">
+              Mobile is required
             </mat-error>
           </mat-form-field>
         </div>

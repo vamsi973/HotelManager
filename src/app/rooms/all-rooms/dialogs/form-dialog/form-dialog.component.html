@@ -18,8 +18,8 @@
         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
           <mat-form-field class="example-full-width mb-3" appearance="outline">
             <mat-label>Room No</mat-label>
-            <input matInput formControlName="roomNo" required>
-            <mat-error *ngIf="roomForm.get('roomNo').hasError('required')">
+            <input matInput formControlName="room_no" required>
+            <mat-error *ngIf="roomForm.get('room_no').hasError('required')">
               Room no is required
             </mat-error>
           </mat-form-field>
@@ -27,8 +27,14 @@
         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
           <mat-form-field class="example-full-width mb-3" appearance="outline">
             <mat-label>Select Room Type</mat-label>
-            <mat-select formControlName="type" required>
-              <mat-option [value]="'Delux'">
+            <mat-select formControlName="room_type" required>
+              <mat-option [value]="'Suit'">
+                Suit
+              </mat-option>
+              <mat-option [value]="'Standard'">
+                Standard
+              </mat-option>
+              <!-- <mat-option [value]="'Delux'">
                 Delux
               </mat-option>
               <mat-option [value]="'Super Delux'">
@@ -42,19 +48,20 @@
               </mat-option>
               <mat-option [value]="'Vila'">
                 Vila
-              </mat-option>
+              </mat-option> -->
             </mat-select>
-            <mat-error *ngIf="roomForm.get('type').hasError('required')">
+            <mat-error *ngIf="roomForm.get('room_type').hasError('required')">
               Select Room Type
             </mat-error>
           </mat-form-field>
         </div>
       </div>
+      
       <div class="row">
         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
           <mat-form-field class="example-full-width mb-3" appearance="outline">
             <mat-label>AC/Non AC</mat-label>
-            <mat-select formControlName="acNonac" required>
+            <mat-select formControlName="category" required>
               <mat-option [value]="'AC'">
                 AC
               </mat-option>
@@ -62,11 +69,34 @@
                 Non AC
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="roomForm.get('acNonac').hasError('required')">
+            <mat-error *ngIf="roomForm.get('category').hasError('required')">
               Select AC or Non AC
             </mat-error>
           </mat-form-field>
         </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Capacity</mat-label>
+            <input matInput formControlName="room_capacity" type="number">
+            <mat-error *ngIf="roomForm.get('room_capacity').hasError('required')">
+              Capacity is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Rent</mat-label>
+            <input matInput formControlName="rent" type="number">
+            <mat-error *ngIf="roomForm.get('rent').hasError('required')">
+              Rent is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- <div class="row">
+       
         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
           <mat-form-field class="example-full-width mb-3" appearance="outline">
             <mat-label>Meal</mat-label>
@@ -95,17 +125,6 @@
             </mat-error>
           </mat-form-field>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-          <mat-form-field class="example-full-width mb-3" appearance="outline">
-            <mat-label>Capacity</mat-label>
-            <input matInput formControlName="capacity" type="number">
-            <mat-error *ngIf="roomForm.get('capacity').hasError('required')">
-              Capacity is required
-            </mat-error>
-          </mat-form-field>
-        </div>
         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
           <mat-form-field class="example-full-width mb-3" appearance="outline">
             <mat-label>Phone</mat-label>
@@ -115,18 +134,8 @@
             </mat-error>
           </mat-form-field>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-          <mat-form-field class="example-full-width mb-3" appearance="outline">
-            <mat-label>Rent</mat-label>
-            <input matInput formControlName="rent" type="number">
-            <mat-error *ngIf="roomForm.get('rent').hasError('required')">
-              Rent is required
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
+      </div> -->
+    
       <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
           <div class="example-button-row">

@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { Room } from '../../rooms.model';
 import { formatDate } from '@angular/common';
+import { I } from '@angular/cdk/keycodes';
 @Component({
   selector: 'app-form-dialog',
   templateUrl: './form-dialog.component.html',
@@ -49,13 +50,13 @@ export class FormDialogComponent {
   }
   createContactForm(): FormGroup {
     return this.fb.group({
-      id: [this.room.id],
-      roomNo: [this.room.roomNo],
-      type: [this.room.type],
-      acNonac: [this.room.acNonac],
-      meal: [this.room.meal],
-      capacity: [this.room.capacity],
-      phone: [this.room.phone],
+      _id: [this.room._id],
+      room_no: [this.room.room_no],
+      room_type: [this.room.room_type],
+      category: [this.room.category],
+      // meal: [this.room.meal],
+      room_capacity: [this.room.room_capacity],
+      // phone: [this.room.phone],
       rent: [this.room.rent]
     });
   }
@@ -66,6 +67,10 @@ export class FormDialogComponent {
     this.dialogRef.close();
   }
   public confirmAdd(): void {
+    console.log(this.action,69)
+    if(this.action =='edit'){
+     return this.roomService.updateRoom(this.roomForm.getRawValue());
+    }
     this.roomService.addRoom(this.roomForm.getRawValue());
   }
 }

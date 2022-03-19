@@ -16,6 +16,13 @@ export class DeleteDialogComponent {
     this.dialogRef.close();
   }
   confirmDelete(): void {
-    this.bookingService.deleteBooking(this.data.id);
+    this.bookingService.deleteBooking(this.data._id);
+  
+
+    this.bookingService.removeBookingRecord(this.data._id).subscribe(
+      res => {
+        console.log(res);
+      })
+
   }
 }

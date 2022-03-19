@@ -93,13 +93,13 @@
                         </mat-header-cell>
                         <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
                       </ng-container>
-                      <ng-container matColumnDef="img">
+                      <!-- <ng-container matColumnDef="img">
                         <mat-header-cell mat-header-cell *matHeaderCellDef [ngClass]="'tbl-col-width-per-6'"> Image
                         </mat-header-cell>
                         <mat-cell mat-cell *matCellDef="let row" class="table-img tbl-col-width-per-6"> <img
                             [src]="row.img" />
                         </mat-cell>
-                      </ng-container>
+                      </ng-container> -->
                       <ng-container matColumnDef="name">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>Name
                         </mat-header-cell>
@@ -115,7 +115,7 @@
                       <ng-container matColumnDef="mobile">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>Mobile
                         </mat-header-cell>
-                        <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.mobile}}
+                        <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.contact_no}}
                         </mat-cell>
                       </ng-container>
                       <ng-container matColumnDef="email">
@@ -128,19 +128,19 @@
                         <mat-header-cell *matHeaderCellDef mat-sort-header>Room Type
                         </mat-header-cell>
                         <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
-                          {{row.roomType}}</mat-cell>
+                          {{row.room.category}}</mat-cell>
                       </ng-container>
                       <ng-container matColumnDef="arriveDate">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>Arrive
                         </mat-header-cell>
                         <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
-                          {{row.arriveDate | date: 'MM/dd/yyyy'}}</mat-cell>
+                          {{row.arrival_date | date: 'MM/dd/yyyy'}}</mat-cell>
                       </ng-container>
                       <ng-container matColumnDef="departDate">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>Depart
                         </mat-header-cell>
                         <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
-                          {{row.departDate | date: 'MM/dd/yyyy'}}</mat-cell>
+                          {{row.departuer_date | date: 'MM/dd/yyyy'}}</mat-cell>
                       </ng-container>
                       <ng-container matColumnDef="payment">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>Payment
