@@ -22,7 +22,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 export class AllbookingComponent implements OnInit {
   displayedColumns = [
     'select',
-    'img',
+    // 'img',
     'name',
     'gender',
     'mobile',
@@ -109,7 +109,7 @@ export class AllbookingComponent implements OnInit {
       if (result === 1) {
         // When using an edit things are little different, firstly we find record inside DataService by id
         const foundIndex = this.exampleDatabase.dataChange.value.findIndex(
-          (x) => x.id === this.id
+          (x) => x._id === this.id
         );
         // Then you update that record using data from dialogData (values you enetered)
         this.exampleDatabase.dataChange.value[foundIndex] =
@@ -126,7 +126,7 @@ export class AllbookingComponent implements OnInit {
     });
   }
   deleteItem(row) {
-    this.id = row.id;
+    this.id = row._id;
     let tempDirection;
     if (localStorage.getItem('isRtl') === 'true') {
       tempDirection = 'rtl';
@@ -140,7 +140,7 @@ export class AllbookingComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 1) {
         const foundIndex = this.exampleDatabase.dataChange.value.findIndex(
-          (x) => x.id === this.id
+          (x) => x._id === this.id
         );
         // for delete we use splice in order to remove single object from DataService
         this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
@@ -192,10 +192,10 @@ export class AllbookingComponent implements OnInit {
   }
   public loadData() {
     let data = [];
-    this.hotel.dashboard().subscribe((dashboardData) => {
-      data = dashboardData.data;
-      console.log(data,197);
-    })
+    // this.hotel.dashboard().subscribe((dashboardData) => {
+    //   data = dashboardData.data;
+    //   console.log(data,197);
+    // })
     this.exampleDatabase = new BookingService(this.httpClient);
     console.log(this.exampleDatabase, 193);
     this.dataSource = new ExampleDataSource(
@@ -268,12 +268,12 @@ export class ExampleDataSource extends DataSource<Booking> {
           .filter((booking: Booking) => {
             const searchStr = (
               booking.name +
-              booking.arriveDate +
+              booking.arrival_date +
               booking.gender +
-              booking.roomType +
+              
               booking.email +
               booking.payment +
-              booking.mobile
+              booking.contact_no
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -300,7 +300,7 @@ export class ExampleDataSource extends DataSource<Booking> {
       let propertyB: number | string = '';
       switch (this._sort.active) {
         case 'id':
-          [propertyA, propertyB] = [a.id, b.id];
+          [propertyA, propertyB] = [a._id, b._id];
           break;
         case 'name':
           [propertyA, propertyB] = [a.name, b.name];
@@ -309,14 +309,12 @@ export class ExampleDataSource extends DataSource<Booking> {
           [propertyA, propertyB] = [a.email, b.email];
           break;
         case 'arriveDate':
-          [propertyA, propertyB] = [a.arriveDate, b.arriveDate];
+          [propertyA, propertyB] = [a.arrival_date, b.arrival_date];
           break;
         case 'departDate':
-          [propertyA, propertyB] = [a.departDate, b.departDate];
+          [propertyA, propertyB] = [a.departuer_date, b.departuer_date];
           break;
-        case 'roomType':
-          [propertyA, propertyB] = [a.roomType, b.roomType];
-          break;
+   
         case 'gender':
           [propertyA, propertyB] = [a.gender, b.gender];
           break;

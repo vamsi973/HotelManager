@@ -19,10 +19,10 @@ export class BookingService {
   }
   /** CRUD METHODS */
   getAllBookings(): void {
-    this.httpClient.get<Booking[]>(this.API_URL).subscribe(
+    this.httpClient.get<Booking[]>(environment.apiUrl + '/hotel/all').subscribe(
       (data) => {
         this.isTblLoading = false;
-        this.dataChange.next(data);
+        this.dataChange.next(data['data']);
       },
       (error: HttpErrorResponse) => {
         this.isTblLoading = false;
@@ -44,8 +44,6 @@ export class BookingService {
   createBooking(data):Observable<any>{
     return this.httpClient.post(`${environment.apiUrl}/hotel/insertCheckin`, data)
   }
-
-
   
   checkin(data): Observable<any> {
     return this.httpClient.post(environment.apiUrl + '/hotel/insertCheckin', data);
@@ -59,5 +57,16 @@ export class BookingService {
   getAvailableRooms(): Observable<any> {
     return this.httpClient.get(environment.apiUrl + '/hotel/getAvailableRooms');
   }
+
+  updateBookingStatus(data): Observable<any> {
+    return this.httpClient.post(environment.apiUrl + '/hotel/updateBookingStatus', data);
+  }
   
+  removeBookingRecord(id): Observable<any> {
+    return this.httpClient.post(`${environment.apiUrl}/hotel/remove`, { id: id })
+  }
+
+  removeSelectedBookings(rooms): Observable<any> {
+    return this.httpClient.post(`${environment.apiUrl}/hotel/multipleRoomRecordsRemove`, rooms)
+  }
 }

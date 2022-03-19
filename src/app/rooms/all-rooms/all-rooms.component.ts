@@ -25,9 +25,9 @@ export class AllroomComponent implements OnInit {
     'roomNo',
     'type',
     'acNonac',
-    'meal',
+    // 'meal',
     'capacity',
-    'phone',
+    // 'phone',
     'rent',
     'actions',
   ];
@@ -41,7 +41,7 @@ export class AllroomComponent implements OnInit {
     public dialog: MatDialog,
     public roomService: RoomService,
     private snackBar: MatSnackBar
-  ) {}
+  ) { }
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('filter', { static: true }) filter: ElementRef;
@@ -105,7 +105,7 @@ export class AllroomComponent implements OnInit {
       if (result === 1) {
         // When using an edit things are little different, firstly we find record inside DataService by id
         const foundIndex = this.exampleDatabase.dataChange.value.findIndex(
-          (x) => x.id === this.id
+          (x) => x._id === this.id
         );
         // Then you update that record using data from dialogData (values you enetered)
         this.exampleDatabase.dataChange.value[foundIndex] =
@@ -122,7 +122,7 @@ export class AllroomComponent implements OnInit {
     });
   }
   deleteItem(row) {
-    this.id = row.id;
+    this.id = row._id;
     let tempDirection;
     if (localStorage.getItem('isRtl') === 'true') {
       tempDirection = 'rtl';
@@ -136,7 +136,7 @@ export class AllroomComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 1) {
         const foundIndex = this.exampleDatabase.dataChange.value.findIndex(
-          (x) => x.id === this.id
+          (x) => x._id === this.id
         );
         // for delete we use splice in order to remove single object from DataService
         this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
@@ -165,12 +165,14 @@ export class AllroomComponent implements OnInit {
     this.isAllSelected()
       ? this.selection.clear()
       : this.dataSource.renderedData.forEach((row) =>
-          this.selection.select(row)
-        );
+        this.selection.select(row)
+      );
   }
   removeSelectedRows() {
     const totalSelect = this.selection.selected.length;
+    let ids = [];
     this.selection.selected.forEach((item) => {
+      ids.push(item._id);
       const index: number = this.dataSource.renderedData.findIndex(
         (d) => d === item
       );
@@ -179,6 +181,7 @@ export class AllroomComponent implements OnInit {
       this.refreshTable();
       this.selection = new SelectionModel<Room>(true, []);
     });
+    this.roomService.removeSelectedRooms({ id: ids }).subscribe();
     this.showNotification(
       'snackbar-danger',
       totalSelect + ' Record Delete Successfully...!!!',
@@ -257,12 +260,11 @@ export class ExampleDataSource extends DataSource<Room> {
           .slice()
           .filter((room: Room) => {
             const searchStr = (
-              room.roomNo +
-              room.type +
-              room.acNonac +
-              room.meal +
-              room.capacity +
-              room.phone
+              room.room_no +
+              room.room_type +
+              room.category +
+              room.room_capacity +
+              room.rent
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -278,7 +280,7 @@ export class ExampleDataSource extends DataSource<Room> {
       })
     );
   }
-  disconnect() {}
+  disconnect() { }
   /** Returns a sorted copy of the database data. */
   sortData(data: Room[]): Room[] {
     if (!this._sort.active || this._sort.direction === '') {
@@ -288,27 +290,27 @@ export class ExampleDataSource extends DataSource<Room> {
       let propertyA: number | string = '';
       let propertyB: number | string = '';
       switch (this._sort.active) {
-        case 'id':
-          [propertyA, propertyB] = [a.id, b.id];
+        case '_id':
+          [propertyA, propertyB] = [a._id, b._id];
           break;
-        case 'roomNo':
-          [propertyA, propertyB] = [a.roomNo, b.roomNo];
+        case 'room_no':
+          [propertyA, propertyB] = [a.room_no, b.room_no];
           break;
         case 'type':
-          [propertyA, propertyB] = [a.type, b.type];
+          [propertyA, propertyB] = [a.room_type, b.room_type];
           break;
-        case 'acNonac':
-          [propertyA, propertyB] = [a.acNonac, b.acNonac];
+        case 'category':
+          [propertyA, propertyB] = [a.category, b.category];
           break;
-        case 'meal':
-          [propertyA, propertyB] = [a.meal, b.meal];
+        // case 'meal':
+        //   [propertyA, propertyB] = [a.meal, b.meal];
+        //   break;
+        case 'room_capacity':
+          [propertyA, propertyB] = [a.room_capacity, b.room_capacity];
           break;
-        case 'capacity':
-          [propertyA, propertyB] = [a.capacity, b.capacity];
-          break;
-        case 'phone':
-          [propertyA, propertyB] = [a.phone, b.phone];
-          break;
+        // case 'phone':
+        //   [propertyA, propertyB] = [a.phone, b.phone];
+        //   break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;

@@ -9,7 +9,8 @@ import { BookingService } from '../all-booking/booking.service';
 })
 export class AddBookingComponent {
   bookingForm: FormGroup;
-  selectedFile: File = null
+  selectedFile: File = null;
+  availableRooms =[];
   constructor(
     private fb: FormBuilder,
     private hotel: BookingService
@@ -22,10 +23,10 @@ export class AddBookingComponent {
       ],
       gender: ['', [Validators.required]],
       contact_no: ['', [Validators.required]],
-      city: [''],
+      advance_amount: [''],
       arrival_date: ['', [Validators.required]],
       departuer_date: ['', [Validators.required]],
-      total_person: ['', [Validators.required]],
+      total_persons: ['', [Validators.required]],
       room_type: ['', [Validators.required]],
       address: [''],
       uploadImg: [''],
@@ -36,6 +37,14 @@ export class AddBookingComponent {
       arrived_by: [],
       proceeding_by: [],
     });
+  }
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this.hotel.getAvailableRooms().subscribe((data) => {
+      this.availableRooms =data.data;
+    })
+    
   }
   onSubmit() {
     console.log('Form Value', this.bookingForm.value);
